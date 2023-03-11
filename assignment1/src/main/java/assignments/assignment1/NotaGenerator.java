@@ -165,28 +165,29 @@ public class NotaGenerator {
     public static String generateNota(String id, String paket, int berat, String tanggalTerima){
         if(berat <2){ //Apabila berat paket < 2kg, maka akan dianggap sebagai 2 kg
             berat = 2;
+    
             System.out.println("Cucian kurang dari 2 kg, maka cucian akan dianggap sebagai 2 kg");
         }
         String tanggalSelesai = formatTanggal(tanggalTerima, paket); //Memanggil method formatTanggal untuk mendapat value tanggal selesai
 
         int faktorHarga = 0;
         int hargaFinal = 0;
-        int days = 0;
+        // int days = 0;
 
         if (paket.equalsIgnoreCase("express")){ //If-else untuk menentukan faktor harga dan hari
-            days = 1;
+            // days = 1;
             faktorHarga = 12000;
         }else if(paket.equalsIgnoreCase("fast")){
-            days = 2;
+            // days = 2;
             faktorHarga = 10000;
         }else if(paket.equalsIgnoreCase("reguler")){
-            days = 3;
+            // days = 3;
             faktorHarga = 7000;
         }
         
         hargaFinal = berat * faktorHarga; //Menentukan harga final berdasarkan berat dan faktor harga
 
-        //SAtring format nota laundry
+        //String format nota laundry
         String finalID = "ID    : " + id;
         String finalPaket = "Paket : " + paket;
         String finalHarga = "Harga :\n" + berat + " kg x " + faktorHarga + " = " + hargaFinal;
