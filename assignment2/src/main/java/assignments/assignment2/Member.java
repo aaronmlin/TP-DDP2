@@ -1,5 +1,4 @@
 package assignments.assignment2;
-
 import assignments.assignment1.NotaGenerator;
 
 public class Member {
@@ -12,11 +11,9 @@ public class Member {
         this.noHp = noHp;
         this.id = id;
         this.bonusCounter = 0;
-
     }
     public String getName(){
         return nama;
-
     }
     public String getNoHP(){
         return noHp;
@@ -27,8 +24,11 @@ public class Member {
     public int getBonusCounter() {
         return bonusCounter;
     }
+    public void incrementBonusCounter(){
+        bonusCounter++;
+    }
+    public void resetBonusCounter(){
+        bonusCounter = 0;
+    }
     
-    
-
-    // TODO: tambahkan methods yang diperlukan untuk class ini
 }
