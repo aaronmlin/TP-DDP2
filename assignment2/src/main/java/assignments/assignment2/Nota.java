@@ -10,20 +10,20 @@ public class Nota {
     int sisaHariPengerjaan;
     boolean isReady;
     public Nota(Member member, String paket, int berat, String tanggalMasuk, int idNota) {
-        this.member = member;
+        this.member = member; //Constructor untuk class Nota
         this.paket = paket;
         this.berat = berat;
         this.tanggalMasuk = tanggalMasuk;
-        this.sisaHariPengerjaan = setSisaHari();
+        this.sisaHariPengerjaan = setSisaHari(); //sisa Hari dialokasikan ke method setSisaHari
         this.idNota = idNota;
     }
-    public String getPaket(){
+    public String getPaket(){ //Method getter paket
         return paket;
     }
-    public int getBerat(){
+    public int getBerat(){ //Method getter berat
         return berat;
     }
-    public String tanggalMasuk(){
+    public String tanggalMasuk(){ 
         return tanggalMasuk;
     }
     public Member getMember(){
@@ -43,7 +43,7 @@ public class Nota {
     public boolean getIsReady(){
         return isReady;
     }
-    public int setSisaHari(){
+    public int setSisaHari(){ //Method untuk men-setting sisa hari setiap apket
         if(paket.toUpperCase().equals("REGULER")){
             return 3;
         }else if(paket.toUpperCase().equals("FAST")){
@@ -54,7 +54,7 @@ public class Nota {
             return 0;
         }
     }
-    public void nextDaySisa(){
+    public void nextDaySisa(){ //Method mengurangi sisa hari setiap next day
         this.sisaHariPengerjaan -=1;
     }
 
