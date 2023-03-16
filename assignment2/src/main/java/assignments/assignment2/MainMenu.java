@@ -195,7 +195,9 @@ public class MainMenu {
         }
         int checkIDNota = Integer.valueOf(strCheck);
         Nota nota = findNotaID(checkIDNota); //Memanggil method find ID Nota
-        if (nota.getSisaHari() > 0){  //Mengecek apakah nota yang ingin diambil sudah dapat diambil
+        if (nota == null){
+            System.out.printf("Nota dengan ID %s tidak ditemukan!",checkIDNota);
+        }else if(nota.getSisaHari() > 0){  //Mengecek apakah nota yang ingin diambil sudah dapat diambil
             System.out.printf("Nota dengan ID %s gagal diambil!", checkIDNota);
             return;
         }else{
@@ -214,7 +216,7 @@ public class MainMenu {
     private static void handleNextDay() { //Method untuk menambah hari
         System.out.println("Dek Depe tidur hari ini... zzz...");
         cal.add(Calendar.DATE,1); //Menambah satu hari ke cal.getInstance()
-        // nota.nextDaySisa();
+        
         for (int i = 0; i < notaList.size(); i++){
             if(notaList.get(i).getSisaHari() > 0){
                 notaList.get(i).nextDaySisa();
@@ -283,7 +285,7 @@ public class MainMenu {
         }else{
             hargaFinal = berat * faktorHarga;
             hargaDiskon = hargaFinal / 2;
-            finalHarga = "Harga :\n" + berat + " kg x " + faktorHarga + " = " + hargaFinal + " = " + hargaDiskon + "(Discount member 50%!!!)";
+            finalHarga = "Harga :\n" + berat + " kg x " + faktorHarga + " = " + hargaFinal + " = " + hargaDiskon + " (Discount member 50%!!!)";
             member.resetBonusCounter();
         }
     
