@@ -1,13 +1,10 @@
 package assignments.assignment3;
-
 import assignments.assignment3.nota.NotaManager;
 import assignments.assignment3.user.Member;
 import assignments.assignment3.user.menu.EmployeeSystem;
 import assignments.assignment3.user.menu.MemberSystem;
 import assignments.assignment3.user.menu.SystemCLI;
-
 import java.util.Scanner;
-
 import static assignments.assignment3.nota.NotaManager.cal;
 import static assignments.assignment3.nota.NotaManager.fmt;
 

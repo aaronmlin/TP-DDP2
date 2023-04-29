@@ -19,14 +19,13 @@ public abstract class SystemCLI {
      */
     public void login(Scanner in, String inputId, String inputPassword){
         Member authMember = authUser(inputId, inputPassword);
-
         if (authMember != null) {
             this.in = in;
             System.out.println("Login successful!");
             run(in, authMember);
             return;
         }
-
+        // System.out.println("aaaa");
         System.out.println("Invalid ID or password.");
     };
 
@@ -76,8 +75,7 @@ public abstract class SystemCLI {
      * @return true jika ada member dengan ID yang diberikan, false jika tidak.
      */
     public boolean isMemberExist(String id){
-        for (Member member:
-                memberList) {
+        for (Member member : memberList) {
             if(member.getId().equals(id)){
                 return true;
             }

@@ -24,6 +24,7 @@ public class LoginManager {
     public SystemCLI getSystem(String id){
         if(memberSystem.isMemberExist(id)){
             return memberSystem;
+            
         }
         if(employeeSystem.isMemberExist(id)){
             return employeeSystem;
@@ -39,8 +40,33 @@ public class LoginManager {
      * @param password -> Password akun member.
      * @return Member object yang berhasil mendaftar, return null jika gagal mendaftar.
      */
-    public Member register(String nama, String noHp, String password) {
-        // TODO
+    public Member register(String nama, String noHp, String password) { //Method register untuk mendaftarkan member baru
+        String tempId = generateId(nama, noHp);
+        if (getSystem(tempId) == null){
+            Member member = new Member(nama, tempId, password);
+            memberSystem.addMember(member);
+            return member;
+        }
         return null;
+  
+    
     }
+    public static String generateId(String nama, String nomorHP){ //Method generateID yang diambil dari solusi TP 1 DDP2 2022/23
+        String id = "";
+        id += (nama.split(" ")[0] + "-").toUpperCase();
+        id += nomorHP;
+
+        int checksum = 0;
+        for (char c : id.toCharArray()) {
+            if (Character.isDigit(c))
+                checksum += c - '0';
+            else if (Character.isLetter(c))
+                checksum += (c - 'A') + 1;
+            else
+                checksum += 7;
+        }
+        id += String.format("-%02d", checksum % 100);
+        return id;
+    }
+
 }

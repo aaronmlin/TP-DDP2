@@ -29,7 +29,13 @@ public class EmployeeSystem extends SystemCLI {
     @Override
     protected boolean processChoice(int choice) {
         boolean logout = false;
-        // TODO:
+        if(choice == 1){
+            cuciTime();
+        }else if(choice == 2){
+            displayNota();
+        }else if(choice == 3){
+            logout = true;
+        }
         return logout;
     }
 
@@ -41,5 +47,21 @@ public class EmployeeSystem extends SystemCLI {
         System.out.println("1. It's nyuci time");
         System.out.println("2. Display List Nota");
         System.out.println("3. Logout");
+    }
+
+    public void cuciTime(){ //Method cuciTime yang akan memanggil method kerjakan di setiap nota yang terdaftar di notaList
+        System.out.println("Stand back! " + loginMember.getNama() + " beginning to nyuci!");
+        for (int i = 0; i < notaList.length; i++) {
+            System.out.printf("Nota %d : %s \n", notaList[i].getIdNota(), notaList[i].kerjakan());
+            if(notaList[i].getServices()[notaList[i].getServices().length-1].isDone() == true){
+                notaList[i].kerjakan();
+            }
+        }
+    }
+
+    public void displayNota(){ //Method displayNota yang akan memanggil method getNotaStatus di setiap nota
+        for (int i = 0; i < notaList.length; i++) {
+            System.out.printf("Nota %d : %s \n", notaList[i].getIdNota(), notaList[i].getNotaStatus());
+        }
     }
 }

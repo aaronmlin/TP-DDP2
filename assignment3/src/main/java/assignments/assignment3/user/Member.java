@@ -1,5 +1,5 @@
 package assignments.assignment3.user;
-
+import java.util.Arrays;
 import assignments.assignment3.nota.Nota;
 public class Member {
     protected String id;
@@ -30,7 +30,9 @@ public class Member {
      * @param nota Nota object untuk ditambahkan.
      */
     public void addNota(Nota nota) {
-        // TODO
+        Nota[] copyOfNotaList = Arrays.copyOf(notaList, notaList.length + 1);
+        copyOfNotaList[copyOfNotaList.length - 1] = nota;
+        notaList = copyOfNotaList;
     }
 
     /**
@@ -40,7 +42,9 @@ public class Member {
      * @return true jika ID dan password sesuai dengan instance member, false jika tidak.
      */
     protected boolean authenticate(String password) {
-        // TODO
+        if(this.password.equalsIgnoreCase(password)){
+            return true;
+        }
         return false;
     }
 
