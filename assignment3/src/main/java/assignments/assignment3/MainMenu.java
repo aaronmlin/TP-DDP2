@@ -62,8 +62,24 @@ public class MainMenu {
     void register() {
         System.out.println("Masukan nama Anda: ");
         String nama = in.nextLine();
-        System.out.println("Masukan nomor handphone Anda: ");
-        String noHp = in.nextLine();
+        String nomorHP;
+        System.out.println("Masukkan nomor HP: ");
+        nomorHP = in.nextLine();
+        long intNomorHP = 0;
+        boolean status = false;
+        while (!status) {                               //Validasi nomorHP
+            try {
+                intNomorHP = Long.parseLong(nomorHP); //Meminta input nomorHP sebagai string, mengubahnya menjadi long
+                status = true;
+            } catch (NumberFormatException e) { //Apabila string input tidak bisa diubah menjadi long, maka input bukan digit
+                System.out.println("Nomor HP hanya menerima digit.");
+                System.out.println("Masukkan nomor HP: ");
+                nomorHP = in.nextLine();
+
+            }
+        }
+        // System.out.println("Masukan nomor handphone Anda: ");
+        String noHp = nomorHP;
         System.out.println("Masukan password Anda: ");
         String password = in.nextLine();
 
