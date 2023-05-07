@@ -52,16 +52,13 @@ public class EmployeeSystem extends SystemCLI {
     public void cuciTime(){ //Method cuciTime yang akan memanggil method kerjakan di setiap nota yang terdaftar di notaList
         System.out.println("Stand back! " + loginMember.getNama() + " beginning to nyuci!");
         for (int i = 0; i < notaList.length; i++) {
-            System.out.printf("Nota %d : %s \n", notaList[i].getIdNota(), notaList[i].kerjakan());
-            if(notaList[i].getServices()[notaList[i].getServices().length-1].isDone() == true){
-                notaList[i].kerjakan();
-            }
+            System.out.println(notaList[i].kerjakan());
         }
     }
 
     public void displayNota(){ //Method displayNota yang akan memanggil method getNotaStatus di setiap nota
         for (int i = 0; i < notaList.length; i++) {
-            System.out.printf("Nota %d : %s \n", notaList[i].getIdNota(), notaList[i].getNotaStatus());
+            System.out.println(notaList[i].getNotaStatus());
         }
     }
 }

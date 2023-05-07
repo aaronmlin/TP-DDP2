@@ -3,20 +3,16 @@ import assignments.assignment3.nota.Nota;
 import assignments.assignment3.nota.NotaManager;
 import assignments.assignment3.nota.service.AntarService;
 import assignments.assignment3.nota.service.CuciService;
-import assignments.assignment3.nota.service.LaundryService;
 import assignments.assignment3.nota.service.SetrikaService;
 import assignments.assignment3.user.Member;
 import java.util.Arrays;
 import java.text.SimpleDateFormat;
 import java.util.Calendar; 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 
 public class MemberSystem extends SystemCLI {
     private static SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
     private static Calendar cal = Calendar.getInstance();
-    private static int idNotaCounter = 0;
+
     /**
      * Memproses pilihan dari Member yang masuk ke sistem ini sesuai dengan menu specific.
      *
@@ -79,7 +75,7 @@ public class MemberSystem extends SystemCLI {
             boolean statusBerat = true;
             while (statusBerat){                //Validasi input berat paket
                 try{
-                    System.out.println("Masukkan berat: "); 
+                    System.out.println("Masukkan berat cucian anda [Kg]: "); 
                     String strBerat = in.nextLine(); //Jalan fungsi sama seperti validasi nomor HP
                     berat = Integer.valueOf(strBerat);
                     if(berat > 0){
@@ -97,9 +93,8 @@ public class MemberSystem extends SystemCLI {
             }
 
             String tanggalMasuk = fmt.format(cal.getTime());
-            Nota nota = new Nota(loginMember, paket, berat, tanggalMasuk);
-            nota.addService(new CuciService());
-            NotaManager.addNota(nota);
+            Nota nota = new Nota(loginMember, berat, paket, tanggalMasuk);
+            NotaManager.addNota(nota); //Menambahkan nota kedalam semua array + class yang sesuai
             loginMember.addNota(nota);
 
             System.out.println("Apakah kamu ingin cucianmu disetrika oleh staff professional kami?");
@@ -107,7 +102,7 @@ public class MemberSystem extends SystemCLI {
             System.out.print("[Ketik x untuk tidak mau]:");
 
             String choiceSetrika = in.nextLine();
-            if(choiceSetrika.equalsIgnoreCase("x") == false){
+            if(choiceSetrika.equalsIgnoreCase("x") == false){ //Apabila pengguna memilih service setrika --> memasukkannya ke LaundryServices
                 SetrikaService setrika = new SetrikaService();
                 nota.addService(setrika);
             }
@@ -116,7 +111,7 @@ public class MemberSystem extends SystemCLI {
             System.out.print("[Ketik x untuk tidak mau]: ");
 
             String choiceAntar = in.nextLine();
-            if(choiceAntar.equalsIgnoreCase("x") == false){
+            if(choiceAntar.equalsIgnoreCase("x") == false){ //Apabila pengguna memilih service antar --> memasukkannya ke LaundryServices
                 AntarService antar = new AntarService();
                 nota.addService(antar);
             }
@@ -133,7 +128,7 @@ public class MemberSystem extends SystemCLI {
     }
 
 
-    public void viewNota(){
+    public void viewNota(){ //Method untuk memanggil toString yang ada di class Nota. Menampilkan nota yang dimiliki oleh setiap member
         for (Nota nota: this.loginMember.getNotaList()){
            System.out.println(nota);
         }
@@ -167,9 +162,9 @@ public class MemberSystem extends SystemCLI {
         nota += "Paket : " + paket + "\n";
         nota += "Harga :\n";
         nota += String.format("%d kg x %d = %d\n", berat, getHargaPaket(paket), (berat * getHargaPaket(paket)));
-        nota += "Tanggal Terima  : " + tanggalTerima + "\n";
+        nota += "tanggal terima  : " + tanggalTerima + "\n";
         cal.add(Calendar.DATE, getHariPaket(paket));
-        nota += "Tanggal Selesai : " + formatter.format(cal.getTime());
+        nota += "tanggal telesai : " + formatter.format(cal.getTime());
         return nota;
     }
     

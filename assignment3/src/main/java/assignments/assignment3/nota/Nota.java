@@ -1,4 +1,5 @@
 package assignments.assignment3.nota;
+import assignments.assignment3.nota.service.CuciService;
 import assignments.assignment3.nota.service.LaundryService;
 import assignments.assignment3.user.Member;
 import assignments.assignment3.user.menu.MemberSystem;
@@ -17,14 +18,14 @@ public class Nota {
     static public int totalNota;
     private int idNota;
 
-    public Nota(Member member, String paket, int berat, String tanggalMasuk) { //Constructor class nota beserta semua atributnya
+    public Nota(Member member, int berat, String paket, String tanggalMasuk) { //Constructor class nota beserta semua atributnya
         this.member = member;
         this.berat = berat;
         this.paket = paket;
         this.sisaHariPengerjaan = setSisaHari();
         this.idNota = totalNota;
         this.tanggalMasuk = tanggalMasuk;
-        this.services = new LaundryService[0]; 
+        this.services = new LaundryService[]{new CuciService()}; 
         totalNota++;
 
     }
@@ -37,38 +38,44 @@ public class Nota {
     public String kerjakan(){ //Method kerjakan untuk melakukan method doWork pada setiap class Service
         for (int i = 0; i < services.length; i++) {
             if(services[i].isDone() == false){
-                return services[i].doWork();
+                if(services[i].equals(services[services.length-1])){
+                    isDone = true;
+                }
+                return "Nota " + getIdNota()+ " : "+  services[i].doWork();
             } 
         }
-        isDone = true;
-        return "Sudah selesai.";
+        return getNotaStatus();
     }
     public void toNextDay() { //Method toNextDay yang menambah 1 hari pada kalender
         if(isDone == false){
             this.nextDaySisa();
         }
     }
-    public long calculateHarga(){
+    public long calculateHarga(){ //Method calculateHarga yang mengecek harga services + harga kompensasi jika lewat hari deadline
         long hargaFinalService = 0;
         for (int i = 0; i < services.length; i++) {
             hargaFinalService += services[i].getHarga(berat);
         }
+        hargaFinalService += (berat * MemberSystem.getHargaPaket(paket));
         if(this.sisaHariPengerjaan < 0){
             for (int i = 0; i < Math.abs(sisaHariPengerjaan); i++) {
-                if ((hargaFinalService - 2000) > 0){
+                if ((hargaFinalService - 2000) >= 0){
                     hargaFinalService -= 2000;
                 }
             }
         }
-        return hargaFinalService + (berat * MemberSystem.getHargaPaket(paket));
+        return hargaFinalService;
     }
 
-    public String getNotaStatus(){
+    
+    public String getNotaStatus(){ //Method getter untuk statusNota
         if(isDone == true){
-            return "Sudah selesai.";
+            return "Nota "+ getIdNota() + " : Sudah selesai."; 
         }
-        return "Belum selesai.";
+    
+        return "Nota "+ getIdNota() + " : Belum selesai."; 
     }
+
     public void setIsDone(){
         if(getSisaHariPengerjaan() == 0){
             this.isDone = true;
@@ -76,13 +83,13 @@ public class Nota {
     }
 
     @Override
-    public String toString() {
+    public String toString() { //Method toString untuk bisa melihat nota
         String hargaService = "\n--- SERVICE LIST ---\n";
 
         for (int i = 0; i < services.length; i++) {
-            hargaService += "-" + services[i].getServiceName() + " @ Rp. " + services[i].getHarga(berat) + "\n";
+            hargaService += "-" + services[i].getServiceName() + " @ Rp. " + services[i].getHarga(berat) + "\n"; //Loop untuk mengambil harga tiap service
         }
-        if(this.sisaHariPengerjaan < 0 && this.isDone == false){
+        if(this.sisaHariPengerjaan < 0 && this.isDone == false){ //Blok if --> jika ada kompensasi
             String kompensasi = "Ada kompensasi keterlambatan " + (-sisaHariPengerjaan) + " * 2000 hari" ;
             return String.format("[ID Nota = %d]%n", idNota) + MemberSystem.generateNota(member.getId(), paket,berat,tanggalMasuk) + hargaService + "Harga Akhir: " + calculateHarga() +" " + kompensasi +"\n";
         }
