@@ -100,7 +100,7 @@ public class LoginGUI extends JPanel {
         String id = idTextField.getText();
         String password = String.valueOf(passwordField.getPassword());
 
-        SystemCLI systemCLI = loginManager.getSystem(id);
+        SystemCLI systemCLI = loginManager.getSystem(id); //Menggunakan systemCLI untuk mengecek apakah terdaftar sebagai memberSystem atau employeeSystem
         if (systemCLI != null){
             if (MainFrame.getInstance().login(id, password)) {
                 idTextField.setText("");

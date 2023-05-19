@@ -30,7 +30,6 @@ public class EmployeeSystemGUI extends AbstractMemberGUI {
      * */
     @Override
     protected JButton[] createButtons() {
-        // TODO
         return new JButton[]{
                 new JButton("It's Nyuci Time"),
                 new JButton("Display List Nota")
@@ -56,7 +55,6 @@ public class EmployeeSystemGUI extends AbstractMemberGUI {
      * Akan dipanggil jika pengguna menekan button pertama pada createButtons
      * */
     private void displayNota() {
-        // TODO
         String notaStatus = "";
         Nota[] notalist = NotaManager.notaList;
         if(notalist.length == 0){
@@ -74,15 +72,14 @@ public class EmployeeSystemGUI extends AbstractMemberGUI {
      * Akan dipanggil jika pengguna menekan button kedua pada createButtons
      * */
     private void cuci() {
-        // TODO
         String doWork = "";
-        Nota[] notalist = NotaManager.notaList;
+        Nota[] notaList = NotaManager.notaList; //Mengambil array dari TP2
         JOptionPane.showMessageDialog(this, "Stand back! " + loggedInMember.getNama() + " beginning to nyuci!", "Nyuci Time", JOptionPane.INFORMATION_MESSAGE);
-        if (notalist.length == 0){
+        if (notaList.length == 0){
             doWork = "Nothing to cuci here";
         }else {
-            for(Nota nota: notalist){
-                doWork += nota.kerjakan() + "\n";
+            for(Nota nota: notaList){
+                doWork += nota.kerjakan() + "\n"; //Method kerjakan dari TP3
             }
         }
         JOptionPane.showMessageDialog(this, doWork, "Nyuci Results", JOptionPane.INFORMATION_MESSAGE);

@@ -113,20 +113,18 @@ public class RegisterGUI extends JPanel {
     * Method untuk mendaftarkan member pada sistem.
     * Akan dipanggil jika pengguna menekan "registerButton"
     * */
-    private void handleRegister() {
+    private void handleRegister() { 
         long noHP = 0;
         String nama = nameTextField.getText();
         String strNomorHP = phoneTextField.getText();
         String password = String.valueOf(passwordField.getPassword());
-
         if (nama.isEmpty() || strNomorHP.isEmpty() || password.isEmpty()){
             JOptionPane.showMessageDialog(this, "Semua field diatas harus diisi!", "Empty Field", JOptionPane.ERROR_MESSAGE);
         } else {
-            try{
+            try{ //Menggunakan method register pada TP3 
                 noHP = Long.parseLong(strNomorHP);
                 String nomorHP = String.valueOf(noHP);
                 String id = LoginManager.generateId(nama, nomorHP);
-
                 Member registeredMember = loginManager.register(nama, nomorHP, password);
                 if(registeredMember == null){
                     JOptionPane.showMessageDialog(this, "User dengan nama " + nama + " dan nomor HP " +  nomorHP + " sudah ada!", "Registration Failed", JOptionPane.ERROR_MESSAGE);
@@ -142,12 +140,4 @@ public class RegisterGUI extends JPanel {
         }
     }
 
-
-    
-    // private void recreatePanel(){
-    //     mainPanel.removeAll();
-    //     initGUI();
-    //     mainPanel.revalidate();
-    //     mainPanel.repaint();
-    // }
 }

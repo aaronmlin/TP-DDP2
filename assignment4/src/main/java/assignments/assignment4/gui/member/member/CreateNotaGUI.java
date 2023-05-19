@@ -132,7 +132,7 @@ public class CreateNotaGUI extends JPanel {
      * */
     private void createNota() {
         try {
-            int berat = Integer.parseInt(beratTextField.getText());
+            int berat = Integer.parseInt(beratTextField.getText()); //Urutan validasi yang hampir sama dengan TP 1-3
             String paket = String.valueOf(paketComboBox.getSelectedItem());
             if (berat <= 0) {
                 JOptionPane.showMessageDialog(this, "Berat cucian harus dalam bentuk bilangan positif!",
@@ -163,7 +163,7 @@ public class CreateNotaGUI extends JPanel {
             JOptionPane.showMessageDialog(this, "Berat Cucian harus berisi angka!",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
-        paketComboBox.setSelectedIndex(0);
+        paketComboBox.setSelectedIndex(0); //Mengembalikan semua field di panel ke default state
         beratTextField.setText("");
         setrikaCheckBox.setSelected(false);
         antarCheckBox.setSelected(false);
@@ -174,7 +174,6 @@ public class CreateNotaGUI extends JPanel {
      * Akan dipanggil jika pengguna menekan "backButton"
      * */
     private void handleBack() {
-        // TODO
         paketComboBox.setSelectedIndex(0);
         beratTextField.setText("");
         setrikaCheckBox.setSelected(false);

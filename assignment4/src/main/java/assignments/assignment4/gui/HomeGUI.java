@@ -24,8 +24,6 @@ public class HomeGUI extends JPanel {
     private JButton loginButton;
     private JButton registerButton;
     private JButton toNextDayButton;
-    // private static HomeGUI currentInstance;
-
     public HomeGUI(){
         super(new BorderLayout()); // Setup layout, Feel free to make any changes
 
@@ -96,10 +94,10 @@ public class HomeGUI extends JPanel {
      * Method untuk skip hari.
      * Akan dipanggil jika pengguna menekan "toNextDayButton"
      * */
-    private void handleNextDay() {
+    private void handleNextDay() { //Menggunakan method toNextDay pada TP sebelumnya
         NotaManager.toNextDay();
-        String tanggalHariIni = NotaManager.fmt.format(NotaManager.cal.getTime());
-        dateLabel.setText((String.format("Today is %s", tanggalHariIni)));
+        String tanggalMasuk = NotaManager.fmt.format(NotaManager.cal.getTime());
+        dateLabel.setText((String.format("Today is %s", tanggalMasuk)));
         JOptionPane.showMessageDialog(this, "Kamu tidur hari ini...zzz...", "Next Day", JOptionPane.INFORMATION_MESSAGE);
 
     }
